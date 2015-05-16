@@ -30,17 +30,17 @@ var shaker = new Tone.Sampler({
     "caxixi": "./samples/shaker/caxixi.mp3",
     "maracas": "./samples/shaker/maracas.mp3",
     "shaker": "./samples/shaker/shaker.mp3"
-}).toMaster
+}).toMaster();
 
 var cat = new Tone.Sampler({
-    "hiss": "./samples/cat/hiss.mp3",
-    "meow1": "./samples/cat/meow1.mp3",
-    "meow2": "./samples/cat/meow2.mp3",
-    "meow3": "./samples/cat/meow3.mp3",
-    "meow4": "./samples/cat/meow4.mp3",
-    "meow5": "./samples/cat/meow5.mp3",
-    "meow6": "./samples/cat/meow6.mp3",
-    "purr": "./samples/cat/purr.mp3"
+    "1": "./samples/cat/meow1.mp3",
+    "2": "./samples/cat/meow2.mp3",
+    "3": "./samples/cat/hiss.mp3",
+    "4": "./samples/cat/meow3.mp3",
+    "5": "./samples/cat/meow4.mp3",
+    "6": "./samples/cat/purr.mp3",
+    "7": "./samples/cat/meow5.mp3",
+    "8": "./samples/cat/meow6.mp3"
 }).toMaster();
 
 var tambourine = new Tone.Sampler({
@@ -74,10 +74,10 @@ $(document).on("mousemove", function(event) {
     if (event.pageX < $(window).width() / 2 && event.pageY < $(window).height() / 2) {
         mousePos = 'ul';
     }
-    console.log(mousePos);
+    //console.log(mousePos);
 });
 
-var activeInst = 'bongo';
+var activeInst = 'bongos';
 $("input[name=instrument]:radio").change(function(data) {
     activeInst = data.target.id;
 })
@@ -107,14 +107,14 @@ doppler.init(function(bandwidth) {
             case 'shaker':
                 playShaker(diff);
                 break;
-            case 'cat':
+            case 'cats':
                 playCat(diff);
                 break;
             case 'tambourine':
-                playTambourine;
+                playTambourine(diff);
                 break;
-            case 'tom':
-                playSynthTom;
+            case 'toms':
+                playSynthTom(diff);
                 break;
         }
     }
@@ -149,8 +149,111 @@ playGuitar = function(diff) {
         if (guitarCount > 6) {
             guitarCount = 1;
         }
-        rhythmGuitar.triggerAttack(guitarCount.toString());
+        rhythmGuitar.triggerAttack(guitarCount);
         guitarCount++;
+
+        lastMove = Date.now();
+    }
+    lastVal = diff;
+}
+
+playSynthTom = function(diff) {
+    if (diff > threshold && Date.now() - lastMove > 150) {
+        switch (mousePos) {
+            case 'ul':
+                synthTom.triggerAttack("tom1", 0, 1);
+                break;
+            case 'ur':
+                synthTom.triggerAttack("tom2", 0, 1);
+                break;
+            case 'll':
+                synthTom.triggerAttack("tom3", 0, 1);
+                break;
+            case 'lr':
+                synthTom.triggerAttack("tom4", 0, 1);
+                break;
+        }
+
+        lastMove = Date.now();
+    }
+    lastVal = diff;
+}
+
+playTambourine = function(diff) {
+    if (diff > threshold && Date.now() - lastMove > 150) {
+        switch (mousePos) {
+            case 'ul':
+                tambourine.triggerAttack("finger", 0, 1);
+                break;
+            case 'ur':
+                tambourine.triggerAttack("roll", 0, 1);
+                break;
+            case 'll':
+                tambourine.triggerAttack("shake", 0, 1);
+                break;
+            case 'lr':
+                tambourine.triggerAttack("slap", 0, 1);
+                break;
+        }
+
+        lastMove = Date.now();
+    }
+    lastVal = diff;
+}
+
+playCowbell = function(diff) {
+    if (diff > threshold && Date.now() - lastMove > 150) {
+        switch (mousePos) {
+            case 'ul':
+                cowbell.triggerAttack("hi", 0, 1);
+                break;
+            case 'ur':
+                cowbell.triggerAttack("med-hi", 0, 1);
+                break;
+            case 'll':
+                cowbell.triggerAttack("med", 0, 1);
+                break;
+            case 'lr':
+                cowbell.triggerAttack("low", 0, 1);
+                break;
+        }
+
+        lastMove = Date.now();
+    }
+    lastVal = diff;
+}
+
+playShaker = function(diff) {
+    if (diff > threshold && Date.now() - lastMove > 150) {
+        switch (mousePos) {
+            case 'ul':
+                shaker.triggerAttack("cabasa", 0, 1);
+                break;
+            case 'ur':
+                shaker.triggerAttack("caxixi", 0, 1);
+                break;
+            case 'll':
+                shaker.triggerAttack("maracas", 0, 1);
+                break;
+            case 'lr':
+                shaker.triggerAttack("shaker", 0, 1);
+                break;
+        }
+
+        lastMove = Date.now();
+    }
+    lastVal = diff;
+}
+
+var catCount = 1;
+playCat = function(diff) {
+    if (diff > threshold && Date.now() - lastMove > 150) {
+
+        if (catCount > 8) {
+            catCount = 1;
+        }
+        cat.triggerAttack(catCount);
+        catCount++;
 
         lastMove = Date.now();
     }
