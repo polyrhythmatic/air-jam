@@ -81,9 +81,14 @@ h1 {
 header {
   padding: 1rem;
 }
+.logo {
+  width: 14rem;
+}
 .menu {
   height: 10rem;
   width: 76rem;
+}
+.menuContainer {
   overflow: scroll;
 }
 input {
