@@ -260,7 +260,13 @@ playCat = function(diff) {
     lastVal = diff;
 }
 
+var mic = new Tone.Microphone();
+var recorder = new soundRecorder(Tone.context);
 
+recorder.setInput(mic);
+
+//Modified from the p5 sound library
+//http://p5js.org/reference/#/p5.SoundRecorder
 
 var soundRecorder;
 soundRecorder = function(context) {
