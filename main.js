@@ -80,6 +80,7 @@ $(document).on("mousemove", function(event) {
 var activeInst = 'bongos';
 $("input[name=instrument]:radio").change(function(data) {
     activeInst = data.target.id;
+    $("#content").html("<img src='./images/" + activeInst +".svg'>")
 })
 
 var lastMove = 0;

@@ -49,19 +49,12 @@ table {
   border-spacing: 0;
 }
 /* End Resets */
-/* FontFace */
 
-@font-face {
-    font-family: 'TexGyre';
-    src: url('fonts/texgyrecursor-regular-webfont.eot'); /* IE9 Compat Modes */
-    src: url('fonts/texgyrecursor-regular-webfont.woff') format('woff'), /* Pretty Modern Browsers */
-         url('fonts/texgyrecursor-regular-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
-         url('fonts/texgyrecursor-regular-webfont.svg#svgTexGyre') format('svg'); /* Legacy iOS */
-}
-/* End FontFace */
 
 body {
-  font-family: "TexGyre";
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 300;
+  background-color: #f2f2f0;
 }
 h1 {
   font-size: 2rem;

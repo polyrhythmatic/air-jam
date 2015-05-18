@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta name="viewport" content="width=device-width, user-scalable=0, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script src="main.js" type="text/javascript"></script>
+    <link href='http://fonts.googleapis.com/css?family=Fira+Sans:300,500' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="deps/doppler.js"></script>
     <script type="text/javascript" src="deps/tone.min.js"></script>
@@ -24,7 +24,7 @@
             <div class="nav"><a href="about.html">About</a></div>
 	  	</header>
 	  
-	  	<div class="content">
+	  	<div class="content" id="content">
 	  		Something here to look at.
 	  	</div><!--content-->
 
@@ -41,6 +41,7 @@
 	  	<input type="radio" name="instrument" value="guitar" id="guitar">
 	  	<label for="guitar" class="instrument-box">
   			<img src="images/guitar.svg" alt="guitar" class="svgs">
+            <br>
             Guitar
 	  	</label>
 	  	
@@ -57,14 +58,14 @@
             Tambourine
 	  	</label>
 	  	
-	  	<input type="radio" name="instrument" value="sample" id="sample">
-	  	<label for="sample" class="instrument-box">
-            <img src="images/mic.svg" alt="mic" class="svgs">
+	  	<input type="radio" name="instrument" value="sampler" id="sampler">
+	  	<label for="sampler" class="instrument-box">
+            <img src="images/sampler.svg" alt="sampler" class="svgs">
 	  		Sample
 	  	</label>
 	  	
-	  	<input type="radio" name="instrument" value="cats" id="cats">
-	  	<label for="cats" class="instrument-box">
+	  	<input type="radio" name="instrument" value="cat" id="cat">
+	  	<label for="cat" class="instrument-box">
             <img src="images/cat.svg" alt="cat" class="svgs">
             <br>
 	  		Cats
@@ -73,4 +74,7 @@
 	</div><!--instrument menu--></div><!--menu wrapper-->
 </div><!--wrapper-->
 </body>
+<footer>
+        <script src="main.js" type="text/javascript"></script>
+</footer>
 </html>
