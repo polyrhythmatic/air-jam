@@ -260,3 +260,8 @@ playCat = function(diff) {
     }
     lastVal = diff;
 }
+
+var mic = new Tone.Microphone();
+var recorder = new soundRecorder(Tone.context);
+
+recorder.setInput(mic);
