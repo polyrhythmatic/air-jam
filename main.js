@@ -1,4 +1,5 @@
 var filter = new Tone.Filter(16000, 'lowpass', -48);
+var voiceFilter = new Tone.Filter(1600, 'lowpass', -12);
 //var comp = new Tone.Compressor(-30, 3);
 var revOne = new Tone.Freeverb(0.55, 0.2);
 revOne.wet.value = 0.2;
@@ -86,26 +87,30 @@ piano.volume.value = -12;
 
 var sampler = new Tone.Sampler({
     "sample": "./samples/sampler/sample.mp3",
-}).toMaster();
-sampler.volume.value = -6;
+}).chain(voiceFilter,Tone.Master);
+sampler.volume.value = -12;
 
 var mousePos = 'ul';
 
 $(document).on("mousemove", function(event) {
-    // console.log("pageX: " + event.pageX + ", pageY: " + event.pageY);
-    if (event.pageX > $(window).width() / 2 && event.pageY > $(window).height() / 2) {
+    var winWidth = $(window).width();
+    var winHeight = $(window).height();
+
+    if (event.pageX > winWidth / 2 && event.pageY > winHeight / 2) {
         mousePos = 'lr';
     }
-    if (event.pageX > $(window).width() / 2 && event.pageY < $(window).height() / 2) {
+    if (event.pageX > winWidth / 2 && event.pageY < winHeight / 2) {
         mousePos = 'ur';
     }
-    if (event.pageX < $(window).width() / 2 && event.pageY > $(window).height() / 2) {
+    if (event.pageX < winWidth / 2 && event.pageY > winHeight / 2) {
         mousePos = 'll';
     }
-    if (event.pageX < $(window).width() / 2 && event.pageY < $(window).height() / 2) {
+    if (event.pageX < winWidth / 2 && event.pageY < winHeight / 2) {
         mousePos = 'ul';
     }
-    //console.log(mousePos);
+    //variFilter.frequency.value = (event.pageX / winWidth) * 1600;
+    //variFilter.Q.value = (1 - event.pageY / winHeight) * 15;
+    sampler.pitch = (0.5 - event.pageX / winWidth) * 15;
 });
 
 var activeInst = 'bongos';
@@ -114,8 +119,8 @@ var recorder = new soundRecorder(Tone.context);
 
 $("input[name=instrument]:radio").change(function(data) {
     activeInst = data.target.id;
-    $("#content").html("<img src='./images/" + activeInst + ".svg'>")
-    if (activeInst = 'sampler') {
+    $("#content").html("<img src='./images/" + activeInst + ".svg'>");
+    if (activeInst === 'sampler') {
         mic = new Tone.Microphone();
         mic.start();
         recorder.setInput(mic);
@@ -304,7 +309,6 @@ playCat = function(diff) {
             catCount = 1;
         }
         cat.triggerAttack(catCount);
-        //triggerTimeout = cat._buffers[catCount].duration * 1000;
         catCount++;
 
         lastMove = Date.now();
@@ -338,7 +342,7 @@ playPiano = function(diff) {
 }
 
 playSampler = function(diff) {
-    if (diff > threshold && Date.now() - lastMove > 150 ){//&& !isRecording) {
+    if (diff > threshold && Date.now() - lastMove > 150 && !isRecording) {
         sampler.triggerAttack("sample");
 
         lastMove = Date.now();
@@ -351,7 +355,6 @@ $('html').keydown(function(e) {
     if (e.which == 82) {
         if (isRecording == false) {
             recorder.record();
-            console.log("recording");
         }
         isRecording = true;
 
@@ -360,7 +363,6 @@ $('html').keydown(function(e) {
 $('html').keyup(function(e) {
     if (e.which == 82 && isRecording === true) {
         isRecording = false;
-        console.log("up")
         recordSample();
     }
 });
@@ -376,6 +378,5 @@ recordSample = function() {
         tempRight[i] = recordedBuffer[1][i];
     }
     sampler._buffers.sample._buffer = tempBuffer;
-    console.log('success');
     recorder.stop();
 }
