@@ -52,6 +52,7 @@ table {
 
 
 body {
+  font-size: 1.25rem;
   font-family: 'Fira Sans', sans-serif;
   font-weight: 300;
   background-color: #eef0f1;
@@ -62,7 +63,14 @@ h1 {
 }
 a {
   text-decoration: none;
-  color: #474B53;
+  color: #5B94F7;
+}
+a:hover {
+  text-decoration: underline;
+  color: #5B94F7;
+}
+a:active {
+  color: #5B94F7;
 }
 .wrapper {
   display: -webkit-flex; /* Safari */
@@ -112,6 +120,7 @@ header {
   background-color: #41B823;
 }
 .content {
+  padding: 1rem 0 0;
   text-align: center;
 }
 .contentsvgs {

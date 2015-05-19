@@ -394,7 +394,7 @@ window.nonChromeTest = function() {
 
 $(window).load(function() {
     if (mobileAndTabletcheck() || nonChromeTest()) {
-        $(".wrapper").html('<div class="main"><header><img src="images/airjamlogo.png" alt="Air Jam" class="logo"></a><div class="nav"><a href="about.html">About</a></div></header><div class="content"><h1>( >﹏<。)～</h1><br><h1>Airjam only works on <u>laptops</u> with <a href="www.google.com/chrome/">Chrome</a></h1></div><!--content--></div><!--main-->');
+        $(".wrapper").html('<div class="main"><header><img src="images/airjamlogo.svg" alt="Air Jam" class="logo"></a><div class="nav"><a href="about.html">About</a></div></header><div class="content"><h1>( >﹏<。)～</h1><br><h1>Airjam only works on <u>laptops</u> with <a href="www.google.com/chrome/">Chrome</a></h1></div><!--content--></div><!--main-->');
     }
 })
 
