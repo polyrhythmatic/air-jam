@@ -61,6 +61,13 @@ body {
 h1 {
   font-size: 2rem;
 }
+p {
+  width: 90%;
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: left;
+  padding: 1rem 0;
+}
 a {
   text-decoration: none;
   color: #8D96A4;
