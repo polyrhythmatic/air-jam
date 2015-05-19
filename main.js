@@ -401,3 +401,45 @@ $(window).load(function() {
 $("#lets-jam").click(function() {
     $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
 })
+
+var instrumentArray = ['bongos', 'guitar', 'rhodes', 'sampler', 'cowbell', 'shakers', 'toms', 'piano', 'tambourine', 'cat'];
+var instKey = 0;
+
+$('html').keydown(function(e) {
+    switch (e.which) {
+        case 37:
+            //left
+            if (instKey == 0) {
+                instKey = 9;
+            } else {
+                instKey--;
+            }
+            var pastInst = activeInst;
+            activeInst = instrumentArray[instKey];
+            $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
+            $("input[name=instrument][value=" + activeInst + "]:radio").prop('checked', true);
+            if (activeInst === 'sampler') {
+                mic = new Tone.Microphone();
+                mic.start();
+                recorder.setInput(mic);
+            }
+            break;
+        case 39:
+            //right
+            if (instKey == 9) {
+                instKey = 0;
+            } else {
+                instKey++;
+            }
+            var pastInst = activeInst;
+            activeInst = instrumentArray[instKey];
+            $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
+            $("input[name=instrument][value=" + activeInst + "]:radio").prop('checked', true);
+            if (activeInst === 'sampler') {
+                mic = new Tone.Microphone();
+                mic.start();
+                recorder.setInput(mic);
+            }
+            break;
+    }
+});
