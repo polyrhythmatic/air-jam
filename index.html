@@ -12,6 +12,22 @@
     <script type="text/javascript" src="deps/doppler.js"></script>
     <script type="text/javascript" src="deps/tone.min.js"></script>
     <script type="text/javascript" src="deps/recorder.js"></script>
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-63140413-1', 'auto');
+    ga('send', 'pageview');
+    </script>
 </head>
 
 <body>
@@ -24,21 +40,18 @@
                 <div class="nav"><a href="about.html">About</a></div>
             </header>
             <div class="content" id="content">
-            	<div class="intro">
-	                <img src="images/volume.svg" alt="volume icon" class="introsvgs">
-	                <img src="images/allowmic.svg" alt="volume icon" class="introsvgs">
-	                <img src="images/headphones.svg" alt="headphones icon" class="introsvgs">
-		            <p>
-			            1. Turn up your volume
-			            <br>
-			            2. Allow mic access
-			            <br>
-			            3. Unplug headphones or speakers
-			            <br>
-			            * You must be on a laptop to jam
-		            </p>	
-		            <a href="#" class="button">Let's Jam!</a>         
-            	</div>
+                <div class="intro">
+                    <img src="images/volume.svg" alt="volume icon" class="introsvgs">
+                    <img src="images/allowmic.svg" alt="volume icon" class="introsvgs">
+                    <img src="images/headphones.svg" alt="headphones icon" class="introsvgs">
+                    <p>
+                        1. Turn up your volume
+                        <br> 2. Allow mic access
+                        <br> 3. Unplug headphones or speakers
+                        <br> * You must be on a laptop to jam
+                    </p>
+                    <a href="#" class="button" id="lets-jam">Let's Jam!</a>
+                </div>
             </div>
             <!--content-->
         </div>
@@ -48,7 +61,7 @@
                 <input type="radio" name="instrument" value="bongos" id="bongos" checked>
                 <label for="bongos" class="instrument-box">
                     <img src="images/bongos_grey.svg" alt="bongos" class="svgs">
-                    <img src="images/bongos_white.svg" alt="bongos" class="svgs"> 
+                    <img src="images/bongos_white.svg" alt="bongos" class="svgs">
                 </label>
                 <input type="radio" name="instrument" value="guitar" id="guitar">
                 <label for="guitar" class="instrument-box">
