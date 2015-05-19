@@ -1,0 +1,44 @@
+todo:
+
+facebook/twitter/email share
+
+nice-to-haves
+page divs/indication for mouse position
+animate hits
+revised error page with analytics
+
+
+Air Jam - touch free musical expression
+
+
+///TWITTER
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://airjam.band" data-text="Air Jam - touch free musical expression" data-via="polyrhythmic" data-hashtags="airjam">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+///FACEBOOK
+
+1. Include the JavaScript SDK on your page once, ideally right after the opening <body> tag.
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+2. Place the code for your plugin wherever you want the plugin to appear on your page.
+
+<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>
+
+///GMAIL SHARE
+
+<a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=youremail@gmail.com&body=my-text">Click here to email</a>
+
+
+///REGULAR EMAIL
+<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com."
+   title="Share by Email">
+  <img src="http://png-2.findicons.com/files/icons/573/must_have/48/mail.png">
+</a>

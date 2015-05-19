@@ -111,16 +111,18 @@ $(document).on("mousemove", function(event) {
 });
 
 var activeInst = 'bongos';
-var mic;
+var mic = new Tone.Microphone();
 var recorder = new soundRecorder(Tone.context);
+recorder.setInput(mic);
+
+var recorderEnabled = false;
 
 $("input[name=instrument]:radio").change(function(data) {
     activeInst = data.target.id;
     $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
-    if (activeInst === 'sampler') {
-        mic = new Tone.Microphone();
+    if (activeInst === 'sampler' && recorderEnabled == false) {
         mic.start();
-        recorder.setInput(mic);
+        recorderEnabled = true;
     }
 })
 
@@ -401,3 +403,43 @@ $(window).load(function() {
 $("#lets-jam").click(function() {
     $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
 })
+
+var instrumentArray = ['bongos', 'guitar', 'rhodes', 'sampler', 'cowbell', 'shakers', 'toms', 'piano', 'tambourine', 'cat'];
+var instKey = 0;
+
+$('html').keydown(function(e) {
+    switch (e.which) {
+        case 37:
+            //left
+            if (instKey == 0) {
+                instKey = 9;
+            } else {
+                instKey--;
+            }
+            var pastInst = activeInst;
+            activeInst = instrumentArray[instKey];
+            $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
+            $("input[name=instrument][value=" + activeInst + "]:radio").prop('checked', true);
+            if (activeInst === 'sampler' && recorderEnabled == false) {
+                mic.start();
+                recorderEnabled = true;
+            }
+            break;
+        case 39:
+            //right
+            if (instKey == 9) {
+                instKey = 0;
+            } else {
+                instKey++;
+            }
+            var pastInst = activeInst;
+            activeInst = instrumentArray[instKey];
+            $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
+            $("input[name=instrument][value=" + activeInst + "]:radio").prop('checked', true);
+            if (activeInst === 'sampler' && recorderEnabled == false) {
+                mic.start();
+                recorderEnabled = true;
+            }
+            break;
+    }
+});
