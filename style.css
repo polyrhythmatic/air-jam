@@ -83,8 +83,11 @@ header {
 .content {
   text-align: center;
 }
+.contentsvgs {
+  width: 25%;
+}
 .menu {
-  height: 12rem;
+  height: 10rem;
   width: 118rem;
 }
 .menuContainer {
@@ -141,5 +144,4 @@ input:checked + .instrument-box img:first-child{
   height: 7rem;
   width: 7rem;
   margin: 0 auto;
-  padding: 0 0 1rem;
 }

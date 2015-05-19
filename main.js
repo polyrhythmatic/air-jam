@@ -116,7 +116,7 @@ var recorder = new soundRecorder(Tone.context);
 
 $("input[name=instrument]:radio").change(function(data) {
     activeInst = data.target.id;
-    $("#content").html("<img src='./images/" + activeInst + ".svg'>");
+    $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
     if (activeInst === 'sampler') {
         mic = new Tone.Microphone();
         mic.start();
