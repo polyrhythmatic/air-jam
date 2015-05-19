@@ -54,7 +54,7 @@ table {
 body {
   font-family: 'Fira Sans', sans-serif;
   font-weight: 300;
-  background-color: #f2f2f0;
+  background-color: #eef0f1;
 }
 h1 {
   font-size: 2rem;
@@ -83,11 +83,31 @@ header {
   text-align: center;
 }
 .menu {
-  height: 10rem;
+  height: 12rem;
   width: 76rem;
 }
 .menuContainer {
   overflow-x: scroll;
+  position: relative;
+}
+.arrows {
+  position: relative;
+}
+.arrows:before,
+.arrows:after {
+  content: '';
+  width: 20px;
+  height: 12rem;
+  background-color: rebeccapurple;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+}
+.arrows:before {
+  left: 0;
+}
+.arrows:after {
+  right: 0;
 }
 input {
   visibility: hidden;
