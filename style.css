@@ -84,7 +84,7 @@ header {
 }
 .menu {
   height: 12rem;
-  width: 76rem;
+  width: 118rem;
 }
 .menuContainer {
   overflow-x: scroll;
@@ -113,7 +113,7 @@ input {
   visibility: hidden;
 }
 input:checked + label {
-  border: 2px solid red;
+  background-color: #5B94F7;
 }
 .instrument-box {
   width: 10rem;
@@ -123,8 +123,8 @@ input:checked + label {
   text-align: center;
   cursor: pointer;
 }
-.svg {
-  height: 3rem;
-  width: 3rem;
+.svgs {
+  height: 7rem;
+  width: 7rem;
   margin: 0 auto;
 }
