@@ -117,6 +117,30 @@ header {
 .contentsvgs {
   height: 20rem;
 }
+.quadrants {
+  width: %50;
+  position: fixed;
+  background-color: blue;
+}
+.quadrants:hover {
+  background-color: #ffffff;
+}
+#q1 {
+  top: 0;
+  left: 0;
+}
+#q2 {
+  top: 0;
+  left: 50%;
+}
+#q3 {
+  top: 50%;
+  left: 0;
+}
+#q4 {
+  top: 50%;
+  left: 50%;
+}
 .menu {
   height: 10rem;
   width: 118rem;
