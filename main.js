@@ -1,3 +1,16 @@
+var filter = new Tone.Filter(16000, 'lowpass', -48);
+//var comp = new Tone.Compressor(-30, 3);
+var revOne = new Tone.Freeverb(0.55, 0.2);
+revOne.wet.value = 0.2;
+
+var revTwo = new Tone.Freeverb(0.4, 0.2);
+revTwo.wet.value = 0.1;
+var revThree = new Tone.Freeverb(0.2, 0.1);
+revThree.wet.value = 0.1;
+
+var delay = new Tone.FeedbackDelay(0.175, 0.1);
+delay.wet.value = 0.15
+
 var bongo = new Tone.Sampler({
     "bongo_hit": "./samples/bongo/hit.mp3",
     "bongo_slap": "./samples/bongo/slap.mp3",
@@ -9,28 +22,31 @@ var bongo = new Tone.Sampler({
 //     "snare": "./samples/snare/snare1.mp3"
 // }).toMaster();
 
-var rhythmGuitar = new Tone.Sampler({
-    "1": "./samples/rhythm_guitar/1.mp3",
-    "2": "./samples/rhythm_guitar/2.mp3",
-    "3": "./samples/rhythm_guitar/3.mp3",
-    "4": "./samples/rhythm_guitar/4.mp3",
-    "5": "./samples/rhythm_guitar/5.mp3",
-    "6": "./samples/rhythm_guitar/6.mp3"
-}).toMaster();
+var guitar = new Tone.Sampler({
+    "1": "./samples/guitar/1.mp3",
+    "2": "./samples/guitar/2.mp3",
+    "3": "./samples/guitar/3.mp3"
+}).chain(revOne, filter, Tone.Master);
+//rhythmGuitar.volume.value = -6;
 
 var cowbell = new Tone.Sampler({
     "hi": "./samples/cowbell/hi.mp3",
     "med-hi": "./samples/cowbell/med-hi.mp3",
     "med": "./samples/cowbell/med.mp3",
     "low": "./samples/cowbell/low.mp3"
-}).toMaster();
+}).chain(revThree, filter, Tone.Master);
+
+var rhodes = new Tone.Sampler({
+    "1": "./samples/rhodes/1.mp3",
+    "2": "./samples/rhodes/2.mp3"
+}).chain(revOne, filter, Tone.Master);
 
 var shaker = new Tone.Sampler({
     "cabasa": "./samples/shaker/cabasa.mp3",
     "caxixi": "./samples/shaker/caxixi.mp3",
     "maracas": "./samples/shaker/maracas.mp3",
     "shaker": "./samples/shaker/shaker.mp3"
-}).toMaster();
+}).chain(revThree, filter, Tone.Master);
 
 var cat = new Tone.Sampler({
     "1": "./samples/cat/meow1.mp3",
@@ -42,13 +58,14 @@ var cat = new Tone.Sampler({
     "7": "./samples/cat/meow5.mp3",
     "8": "./samples/cat/meow6.mp3"
 }).toMaster();
+cat.volume.value = -12;
 
 var tambourine = new Tone.Sampler({
     "finger": "./samples/tambourine/finger.mp3",
     "roll": "./samples/tambourine/roll.mp3",
     "shake": "./samples/tambourine/shake.mp3",
     "slap": "./samples/tambourine/slap.mp3"
-}).toMaster();
+}).chain(revThree, filter, Tone.Master);
 
 var synthTom = new Tone.Sampler({
     "tom1": "./samples/synth_tom/tom1.mp3",
@@ -56,7 +73,21 @@ var synthTom = new Tone.Sampler({
     "tom3": "./samples/synth_tom/tom3.mp3",
     "tom4": "./samples/synth_tom/tom4.mp3"
 
+}).chain(revTwo, filter, Tone.Master);
+synthTom.volume.value = -2;
+
+var piano = new Tone.Sampler({
+    "1": "./samples/piano/B2.mp3",
+    "2": "./samples/piano/C3.mp3",
+    "3": "./samples/piano/D3.mp3",
+    "4": "./samples/piano/G3.mp3"
+}).chain(revTwo, filter, Tone.Master);
+piano.volume.value = -12;
+
+var sampler = new Tone.Sampler({
+    "sample": "./samples/sampler/sample.mp3",
 }).toMaster();
+sampler.volume.value = -6;
 
 var mousePos = 'ul';
 
@@ -78,9 +109,17 @@ $(document).on("mousemove", function(event) {
 });
 
 var activeInst = 'bongos';
+var mic;
+var recorder = new soundRecorder(Tone.context);
+
 $("input[name=instrument]:radio").change(function(data) {
     activeInst = data.target.id;
-    $("#content").html("<img src='./images/" + activeInst +".svg'>")
+    $("#content").html("<img src='./images/" + activeInst + ".svg'>")
+    if (activeInst = 'sampler') {
+        mic = new Tone.Microphone();
+        mic.start();
+        recorder.setInput(mic);
+    }
 })
 
 var lastMove = 0;
@@ -105,10 +144,10 @@ doppler.init(function(bandwidth) {
             case 'cowbell':
                 playCowbell(diff);
                 break;
-            case 'shaker':
+            case 'shakers':
                 playShaker(diff);
                 break;
-            case 'cats':
+            case 'cat':
                 playCat(diff);
                 break;
             case 'tambourine':
@@ -116,6 +155,15 @@ doppler.init(function(bandwidth) {
                 break;
             case 'toms':
                 playSynthTom(diff);
+                break;
+            case 'rhodes':
+                playRhodes(diff);
+                break;
+            case 'piano':
+                playPiano(diff);
+                break;
+            case 'sampler':
+                playSampler(diff);
                 break;
         }
     }
@@ -147,10 +195,10 @@ var guitarCount = 1;
 playGuitar = function(diff) {
     if (diff > threshold && Date.now() - lastMove > 150) {
 
-        if (guitarCount > 6) {
+        if (guitarCount > 3) {
             guitarCount = 1;
         }
-        rhythmGuitar.triggerAttack(guitarCount);
+        guitar.triggerAttack(guitarCount);
         guitarCount++;
 
         lastMove = Date.now();
@@ -179,9 +227,10 @@ playSynthTom = function(diff) {
     }
     lastVal = diff;
 }
+var triggerSpace = 150;
 
 playTambourine = function(diff) {
-    if (diff > threshold && Date.now() - lastMove > 150) {
+    if (diff > threshold && Date.now() - lastMove > triggerSpace) {
         switch (mousePos) {
             case 'ul':
                 tambourine.triggerAttack("finger", 0, 1);
@@ -246,14 +295,16 @@ playShaker = function(diff) {
     lastVal = diff;
 }
 
+var triggerTimeout = 200;
 var catCount = 1;
 playCat = function(diff) {
-    if (diff > threshold && Date.now() - lastMove > 150) {
+    if (diff > threshold && Date.now() - lastMove > triggerTimeout) {
 
         if (catCount > 8) {
             catCount = 1;
         }
         cat.triggerAttack(catCount);
+        //triggerTimeout = cat._buffers[catCount].duration * 1000;
         catCount++;
 
         lastMove = Date.now();
@@ -261,7 +312,70 @@ playCat = function(diff) {
     lastVal = diff;
 }
 
-var mic = new Tone.Microphone();
-var recorder = new soundRecorder(Tone.context);
+var rhodesCount = 1;
+playRhodes = function(diff) {
+    if (diff > threshold && Date.now() - lastMove > 150) {
 
-recorder.setInput(mic);
+        if (rhodesCount > 2) {
+            rhodesCount = 1;
+        }
+        rhodes.triggerAttack(rhodesCount);
+        rhodesCount++;
+
+        lastMove = Date.now();
+    }
+    lastVal = diff;
+}
+
+playPiano = function(diff) {
+    if (diff > threshold && Date.now() - lastMove > 150) {
+        var randomNote = Math.floor(Math.random() * 4) + 1;
+        piano.triggerAttackRelease(randomNote, 0.4);
+
+        lastMove = Date.now();
+    }
+    lastVal = diff;
+}
+
+playSampler = function(diff) {
+    if (diff > threshold && Date.now() - lastMove > 150 ){//&& !isRecording) {
+        sampler.triggerAttack("sample");
+
+        lastMove = Date.now();
+    }
+    lastVal = diff;
+}
+
+var isRecording = false;
+$('html').keydown(function(e) {
+    if (e.which == 82) {
+        if (isRecording == false) {
+            recorder.record();
+            console.log("recording");
+        }
+        isRecording = true;
+
+    }
+});
+$('html').keyup(function(e) {
+    if (e.which == 82 && isRecording === true) {
+        isRecording = false;
+        console.log("up")
+        recordSample();
+    }
+});
+
+
+recordSample = function() {
+    var tempBuffer = Tone.context.createBuffer(2, recorder._getBuffer()[0].length, Tone.context.sampleRate);
+    tempLeft = tempBuffer.getChannelData(0);
+    tempRight = tempBuffer.getChannelData(1);
+    recordedBuffer = recorder._getBuffer();
+    for (var i = 0; i < tempLeft.length; i++) {
+        tempLeft[i] = recordedBuffer[0][i];
+        tempRight[i] = recordedBuffer[1][i];
+    }
+    sampler._buffers.sample._buffer = tempBuffer;
+    console.log('success');
+    recorder.stop();
+}
