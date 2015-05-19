@@ -60,6 +60,10 @@ body {
 h1 {
   font-size: 2rem;
 }
+a {
+  text-decoration: none;
+  color: #474B53;
+}
 .wrapper {
   display: -webkit-flex; /* Safari */
   display: flex;
@@ -79,6 +83,33 @@ header {
 }
 .nav {
   float: right;
+}
+.intro {
+  width: 40%;
+  margin: 0 auto;
+  height: 50%;
+  text-align: left;
+  font-size: 1.25rem;
+}
+.introsvgs {
+  width: 7rem;
+  display: inline-block;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.intro a {
+  background-color: #5B94F7;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 500;
+  display: block;
+  padding: 1rem;
+  margin: 2rem auto;
+  width: 12rem;
+  text-align: center;
+}
+.intro a:hover {
+  background-color: #41B823;
 }
 .content {
   text-align: center;
