@@ -52,6 +52,7 @@ table {
 
 
 body {
+  font-size: 1.25rem;
   font-family: 'Fira Sans', sans-serif;
   font-weight: 300;
   background-color: #eef0f1;
@@ -62,7 +63,11 @@ h1 {
 }
 a {
   text-decoration: none;
-  color: #474B53;
+  color: #8D96A4;
+}
+a:hover {
+  text-decoration: underline;
+  color: #5B94F7;
 }
 .wrapper {
   display: -webkit-flex; /* Safari */
@@ -76,7 +81,7 @@ a {
   width: 100%;
 }
 header {
-  padding: 1rem;
+  padding: 1rem 1.5rem;
 }
 .logo {
   width: 14rem;
@@ -111,7 +116,11 @@ header {
 .intro a:hover {
   background-color: #41B823;
 }
+.italic {
+  font-style: italic;
+}
 .content {
+  padding: 1rem 0 0;
   text-align: center;
 }
 .contentsvgs {

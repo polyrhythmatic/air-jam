@@ -111,16 +111,18 @@ $(document).on("mousemove", function(event) {
 });
 
 var activeInst = 'bongos';
-var mic;
+var mic = new Tone.Microphone();
 var recorder = new soundRecorder(Tone.context);
+recorder.setInput(mic);
+
+var recorderEnabled = false;
 
 $("input[name=instrument]:radio").change(function(data) {
     activeInst = data.target.id;
     $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
-    if (activeInst === 'sampler') {
-        mic = new Tone.Microphone();
+    if (activeInst === 'sampler' && recorderEnabled == false) {
         mic.start();
-        recorder.setInput(mic);
+        recorderEnabled = true;
     }
 })
 
@@ -394,7 +396,7 @@ window.nonChromeTest = function() {
 
 $(window).load(function() {
     if (mobileAndTabletcheck() || nonChromeTest()) {
-        $(".wrapper").html('<div class="main"><header><img src="images/airjamlogo.png" alt="Air Jam" class="logo"></a><div class="nav"><a href="about.html">About</a></div></header><div class="content"><h1>( >﹏<。)～</h1><br><h1>Airjam only works on <u>laptops</u> with <a href="www.google.com/chrome/">Chrome</a></h1></div><!--content--></div><!--main-->');
+        $(".wrapper").html('<div class="main"><header><img src="images/airjamlogo.svg" alt="Air Jam" class="logo"></a><div class="nav"><a href="about.html">About</a></div></header><div class="content"><h1>( >﹏<。)～</h1><br><h1>Airjam only works on <u>laptops</u> with <a href="www.google.com/chrome/">Chrome</a></h1></div><!--content--></div><!--main-->');
     }
 })
 
@@ -418,10 +420,9 @@ $('html').keydown(function(e) {
             activeInst = instrumentArray[instKey];
             $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
             $("input[name=instrument][value=" + activeInst + "]:radio").prop('checked', true);
-            if (activeInst === 'sampler') {
-                mic = new Tone.Microphone();
+            if (activeInst === 'sampler' && recorderEnabled == false) {
                 mic.start();
-                recorder.setInput(mic);
+                recorderEnabled = true;
             }
             break;
         case 39:
@@ -435,10 +436,9 @@ $('html').keydown(function(e) {
             activeInst = instrumentArray[instKey];
             $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
             $("input[name=instrument][value=" + activeInst + "]:radio").prop('checked', true);
-            if (activeInst === 'sampler') {
-                mic = new Tone.Microphone();
+            if (activeInst === 'sampler' && recorderEnabled == false) {
                 mic.start();
-                recorder.setInput(mic);
+                recorderEnabled = true;
             }
             break;
     }
