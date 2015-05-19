@@ -1,11 +1,13 @@
 var filter = new Tone.Filter(16000, 'lowpass', -48);
+
 var voiceFilter = new Tone.Filter(1600, 'lowpass', -12);
-//var comp = new Tone.Compressor(-30, 3);
+
 var revOne = new Tone.Freeverb(0.55, 0.2);
 revOne.wet.value = 0.2;
 
 var revTwo = new Tone.Freeverb(0.4, 0.2);
 revTwo.wet.value = 0.1;
+
 var revThree = new Tone.Freeverb(0.2, 0.1);
 revThree.wet.value = 0.1;
 
@@ -19,16 +21,11 @@ var bongo = new Tone.Sampler({
     "bongo_flam": "./samples/bongo/flam.mp3"
 }).toMaster();
 
-// var snare = new Tone.Sampler({
-//     "snare": "./samples/snare/snare1.mp3"
-// }).toMaster();
-
 var guitar = new Tone.Sampler({
     "1": "./samples/guitar/1.mp3",
     "2": "./samples/guitar/2.mp3",
     "3": "./samples/guitar/3.mp3"
 }).chain(revOne, filter, Tone.Master);
-//rhythmGuitar.volume.value = -6;
 
 var cowbell = new Tone.Sampler({
     "hi": "./samples/cowbell/hi.mp3",

@@ -28,7 +28,6 @@ soundRecorder = function(context) {
             } else if (self.recording === true) {
                 // if we are past the duration, then stop... else:
                 if (self.sampleLimit && self.recordedSamples >= self.sampleLimit) {
-                    // self.stop();
                 } else {
                     // get channel data
                     var left = event.inputBuffer.getChannelData(0);
