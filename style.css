@@ -55,6 +55,7 @@ body {
   font-family: 'Fira Sans', sans-serif;
   font-weight: 300;
   background-color: #eef0f1;
+  color: #474B53;
 }
 h1 {
   font-size: 2rem;
@@ -114,6 +115,7 @@ input {
 }
 input:checked + label {
   background-color: #5B94F7;
+  color: #ffffff;
 }
 .instrument-box {
   width: 10rem;
@@ -123,8 +125,21 @@ input:checked + label {
   text-align: center;
   cursor: pointer;
 }
+.instrument-box img:first-child{
+  display: block;
+}
+.instrument-box img:last-child{
+  display: none;
+}
+input:checked + .instrument-box img:last-child{
+  display: block;
+}
+input:checked + .instrument-box img:first-child{
+  display: none;
+}
 .svgs {
   height: 7rem;
   width: 7rem;
   margin: 0 auto;
+  padding: 0 0 1rem;
 }
