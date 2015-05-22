@@ -1,0 +1,216 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1.25;
+  height: 100%;
+  position: relative;
+  padding-bottom: 1px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after, 
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* End Resets */
+
+
+body {
+  font-size: 1.25rem;
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 300;
+  background-color: #eef0f1;
+  color: #474B53;
+}
+h1 {
+  font-size: 2rem;
+}
+a {
+  text-decoration: none;
+  color: #8D96A4;
+}
+a:hover {
+  text-decoration: underline;
+  color: #5B94F7;
+}
+.wrapper {
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  -webkit-flex-direction: column; /* Safari */
+  flex-direction: column;
+  min-height: 100vh;
+}
+.main {
+  flex: 1;
+  width: 100%;
+}
+header {
+  padding: 1rem 1.5rem;
+}
+.logo {
+  width: 14rem;
+}
+.nav {
+  float: right;
+}
+.intro {
+  width: 40%;
+  margin: 0 auto;
+  height: 50%;
+  text-align: left;
+  font-size: 1.25rem;
+}
+.introsvgs {
+  width: 8rem;
+  display: inline-block;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.intro a {
+  background-color: #5B94F7;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 500;
+  display: block;
+  padding: 1rem;
+  margin: 2rem auto;
+  width: 12rem;
+  text-align: center;
+}
+.intro a:hover {
+  background-color: #41B823;
+}
+.italic {
+  font-style: italic;
+}
+.content {
+  padding: 1rem 0 0;
+  text-align: center;
+}
+.contentsvgs {
+  height: 20rem;
+}
+.quadrants {
+  width: %50;
+  position: fixed;
+  background-color: blue;
+}
+.quadrants:hover {
+  background-color: #ffffff;
+}
+#q1 {
+  top: 0;
+  left: 0;
+}
+#q2 {
+  top: 0;
+  left: 50%;
+}
+#q3 {
+  top: 50%;
+  left: 0;
+}
+#q4 {
+  top: 50%;
+  left: 50%;
+}
+.menu {
+  height: 10rem;
+  width: 118rem;
+}
+.menuContainer {
+  overflow-x: scroll;
+  position: relative;
+}
+.arrows {
+  position: relative;
+}
+.arrows:before,
+.arrows:after {
+  content: '';
+  width: 2rem;
+  height: 10rem;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+}
+.arrows:before {
+  left: 0;
+  background-image: url("./images/arrow-l.svg");
+  background-repeat: no-repeat;
+  background-position: 100% 40%;
+}
+.arrows:after {
+  right: 0;
+  background-image: url("./images/arrow-r.svg");
+  background-repeat: no-repeat;
+  background-position: 0 40%;
+}
+input {
+  visibility: hidden;
+}
+input:checked + label {
+  background-color: #5B94F7;
+  color: #ffffff;
+}
+.instrument-box {
+  width: 10rem;
+  display: inline-block;
+  font-size: 1.25rem;
+  padding: 1rem 0;
+  text-align: center;
+  cursor: pointer;
+}
+.instrument-box img:first-child{
+  display: block;
+}
+.instrument-box img:last-child{
+  display: none;
+}
+input:checked + .instrument-box img:last-child{
+  display: block;
+}
+input:checked + .instrument-box img:first-child{
+  display: none;
+}
+.svgs {
+  height: 7rem;
+  width: 7rem;
+  margin: 0 auto;
+}
