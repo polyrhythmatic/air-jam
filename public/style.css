@@ -211,6 +211,7 @@ header {
   width: 150rem; */
 }
 .instrument-box {
+  display: block;
   height:200px;
   margin-right:10px;
   width:200px;
