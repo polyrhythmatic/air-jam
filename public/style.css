@@ -158,29 +158,18 @@ header {
   left: 50%;
 }
 .arrows {
-  position: relative;
-}
-.arrows:before,
-.arrows:after {
-  content: '';
-  width: 2rem;
   position: absolute;
-  top: 0;
-  z-index: 10;
+  display: block;
+  height: 200px;
+  width: 2rem;
 }
-.arrows:before {
-  left: 0;
-  content: url("./images/arrow-l.svg");
-  padding: 3rem .5rem;
-  background-color: #eef0f1;
+#arrow-prev {
+  left:0;
 }
-.arrows:after {
-  right: 0;
-  content: url("./images/arrow-r.svg");
-  padding: 3rem 0 3rem 1rem;
-  background-color: #eef0f1;
+#arrow-next {
+  right:0;
 }
-.menuContainer {
+#carousel {
   overflow:hidden;
   position:relative;
   width:auto;
@@ -206,12 +195,17 @@ header {
   display:-o-box;
   display:box;
 
+  list-style-type:none;
+  margin:5px;
+  margin-left:-200px;
+  padding:0;
+
+/*height: 10rem;
   margin: 0 0 0 3rem;
-/*  height: 10rem;
   width: 150rem; */
 }
 .instrument-box {
-  display: block;
+  display: inline-block;
   height:200px;
   margin-right:10px;
   width:200px;
@@ -222,23 +216,20 @@ header {
   text-align: center;
   cursor: pointer;
 }
-input {
-  display: none;
-}
-input:checked + label {
-  background-color: #5B94F7;
-  color: #ffffff;
-}
 .instrument-box img:first-child{
   display: block;
 }
 .instrument-box img:last-child{
   display: none;
 }
-input:checked + .instrument-box img:last-child{
+.selected {
+  background-color: #5B94F7;
+  color: #ffffff;
+}
+.selected img:last-child{
   display: block;
 }
-input:checked + .instrument-box img:first-child{
+.selected img:first-child{
   display: none;
 }
 .svgs {

@@ -39,6 +39,7 @@
                 </a>
                 <div class="nav"><a href="about.html">About</a></div>
             </header>
+
             <div class="content" id="content">
                 <div class="intro">
                     <img src="images/volume.svg" alt="volume icon" class="introsvgs">
@@ -60,12 +61,18 @@
                 </div>
                 <div id="q4" class="quadrant">
                 </div>
-            </div>
-            <!--content-->
-        </div>
-        <!--main-->
-        <div class="arrows">
-        <div class="menuContainer">
+            </div><!--content-->
+        </div><!--main-->
+
+        <div id="carousel">
+
+            <a href="" class="arrows" id="arrow-prev">
+                <img src="images/arrow-prev.svg">
+            </a>
+            <a href="" class="arrows" id="arrow-next">
+                <img src="images/arrow-next.svg">
+            </a>
+
             <ul class="menu">    
                 <li class="instrument-box" id="bongos">
                     <img src="images/bongos_grey.svg" alt="bongos" class="svgs">
@@ -75,7 +82,7 @@
                     <img src="images/guitar_grey.svg" alt="guitar" class="svgs">
                     <img src="images/guitar_white.svg" alt="guitar" class="svgs">
                 </li>
-                <li class="instrument-box" id="rhodes">
+                <li class="instrument-box, selected" id="rhodes">
                     <img src="images/rhodes_grey.svg" alt="rhodes" class="svgs">
                     <img src="images/rhodes_white.svg" alt="rhodes" class="svgs">
                 </li>
@@ -107,13 +114,9 @@
                     <img src="images/cat_grey.svg" alt="cat" class="svgs">
                     <img src="images/cat_white.svg" alt="cat" class="svgs">
                 </li>
-            </ul><!--instrument menu-->
-        </div>
-        <!--menu wrapper-->
-        </div>
-        <!--arrows-->
-    </div>
-    <!--wrapper-->
+            </ul>
+        </div><!--carousel-->
+    </div><!--wrapper-->
 </body>
 <footer>
     <script src="main.js" type="text/javascript"></script>
