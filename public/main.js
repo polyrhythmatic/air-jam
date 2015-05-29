@@ -547,12 +547,12 @@ var carousel = (function(){
             }
 
             // event listener for end of a transition
-            items.addEventListener( transitionEnd, complete );
+            menu.addEventListener( transitionEnd, complete );
 
             // get initial width and margin
-            if (items.children.length > 0) {
+            if (menu.children.length > 0) {
                     
-                var itemStyle = window.getComputedStyle( items.children[0], null ) || items.children[0].currentStyle;
+                var itemStyle = window.getComputedStyle( menu.children[0], null ) || menu.children[0].currentStyle;
                 
                 properties = {
                     width: parseInt( itemStyle.getPropertyValue( 'width' ), 10 ),
