@@ -407,39 +407,200 @@ $("#lets-jam").click(function() {
 var instrumentArray = ['bongos', 'guitar', 'rhodes', 'sampler', 'cowbell', 'shakers', 'toms', 'piano', 'tambourine', 'cat'];
 var instKey = 0;
 
-$('html').keydown(function(e) {
-    switch (e.which) {
-        case 37:
-            //left
-            if (instKey == 0) {
-                instKey = 9;
+var carousel = (function(){
+
+    var container = document.getElementById('carousel'),
+        menu = container.getElementsByTagName('ul')[0];
+
+    var active = 0, // the active item (sits far left)
+        properties = {}, // used to calculate scroll distance
+        animating = false; // whether the carousel is currently animating
+
+    // use Modernizr.prefixed to get the prefixed version of boxOrdinalGroup
+    var boxOrdinalGroup = Modernizr.prefixed( 'boxOrdinalGroup' );
+
+    // list of the end event names in different browser implementations
+    var transEndEventNames = {
+           'WebkitTransition' : 'webkitTransitionEnd',
+           'MozTransition'    : 'transitionend',
+           'OTransition'      : 'oTransitionEnd',
+           'msTransition'     : 'MsTransitionEnd',
+           'transition'       : 'transitionend'
+    };
+
+    // use Modernizr.prefixed to work out which one we need
+    var transitionEnd = transEndEventNames[ Modernizr.prefixed('transition') ];
+
+    function move(e) {
+        // prevent the click action
+        e.preventDefault();
+
+        // check if the carousel is mid-animation
+        if (!animating) {
+
+            // get the event's source element
+            var target = e.target || e.srcElement;
+
+            // find out if we are moving next or previous based on class
+            var next = target.id( 'arrow-next' );
+
+            var margin = 0;//= parseInt(menu.style.marginLeft) || 0;
+
+            // allow our carousel to animate
+            container.classList.add( 'animate' );
+            animating = true;
+
+            if (next) {
+
+                margin = -( ( properties.width*2 )+ properties.marginRight );
+
+                if ( active < menu.children.length - 1 ) {
+                    active++;
+                } else {
+                    active = 0;
+                }
             } else {
-                instKey--;
+
+                margin = properties.marginRight;
+
+                if ( active > 0 ) {
+                    active--;
+                } else {
+                    active = menu.children.length - 1;
+                }
             }
-            var pastInst = activeInst;
-            activeInst = instrumentArray[instKey];
-            $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
-            $("input[name=instrument][value=" + activeInst + "]:radio").prop('checked', true);
-            if (activeInst === 'sampler' && recorderEnabled == false) {
-                mic.start();
-                recorderEnabled = true;
-            }
-            break;
-        case 39:
-            //right
-            if (instKey == 9) {
-                instKey = 0;
-            } else {
-                instKey++;
-            }
-            var pastInst = activeInst;
-            activeInst = instrumentArray[instKey];
-            $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
-            $("input[name=instrument][value=" + activeInst + "]:radio").prop('checked', true);
-            if (activeInst === 'sampler' && recorderEnabled == false) {
-                mic.start();
-                recorderEnabled = true;
-            }
-            break;
+
+            menu.style.marginLeft = margin + 'px';
+        }
+
+
+    } //move
+
+    function complete() {
+        if ( animating ) {
+            animating = false;
+
+            // this needs to be removed so animation does not occur when the ordinal is changed and the carousel reshuffled
+            container.classList.remove( 'animate' );
+            
+            // change the ordinal
+            changeOrdinal();
+
+            // change the margin now there are a different number of items off screen
+            menu.style.marginLeft = -( properties.width ) + 'px';
+        }
     }
-});
+
+    // var prev = getElementById('arrow-prev'),
+    // var next = getElementById('arrow-next');
+
+    // prev.addEventListener('click', movePrev);
+
+    // function movePrev(){
+
+    // };
+    // function moveNext(){
+
+    // };
+
+    var changeOrdinal = (function(){
+
+        var length = menu.children.length,
+        ordinal = 0;
+
+        var index = active-1;
+
+        if (index < 0) {
+            index = length-1;
+        }
+
+        while (ordinal < length) {
+            ordinal++;
+            //check the item definitely exists
+            var instrument = menu.children[index];
+            if (instrument && instrument.style) {
+                //new ordinal value
+                instrument.style[boxOrdinalGroup] = ordinal;
+            }
+
+            /* as we are working from active we need to go back to
+             the start if we reach the end of the item list */
+            if ( index < length-1 ) {
+                index++;
+            } else {
+                index = 0;
+            }
+        }
+    }
+
+    return {
+        init: function() {
+
+            var navigation = document.querySelectorAll( 'a.arrows' );
+            var length = navigation.length;
+
+            // add an event listener to each navigation item
+            var i = 0;
+            while (i < length) {
+                navigation[i].addEventListener( 'click' , move );
+                i++;
+            }
+
+            // event listener for end of a transition
+            items.addEventListener( transitionEnd, complete );
+
+            // get initial width and margin
+            if (items.children.length > 0) {
+                    
+                var itemStyle = window.getComputedStyle( items.children[0], null ) || items.children[0].currentStyle;
+                
+                properties = {
+                    width: parseInt( itemStyle.getPropertyValue( 'width' ), 10 ),
+                    marginRight: parseInt( itemStyle.getPropertyValue( 'margin-right' ), 10 )
+                };
+
+            }
+
+            // set the initial ordinal values
+            changeOrdinal();
+
+        }()
+    }
+})();
+
+// $('html').keydown(function(e) {
+//     switch (e.which) {
+//         case 37:
+//             //left
+//             if (instKey == 0) {
+//                 instKey = 9;
+//             } else {
+//                 instKey--;
+//             }
+//             var pastInst = activeInst;
+//             activeInst = instrumentArray[instKey];
+//             $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
+//             $("input[name=instrument][value=" + activeInst + "]:radio").prop('checked', true);
+//             if (activeInst === 'sampler' && recorderEnabled == false) {
+//                 mic.start();
+//                 recorderEnabled = true;
+//             }
+//             break;
+//         case 39:
+//             //right
+//             if (instKey == 9) {
+//                 instKey = 0;
+//             } else {
+//                 instKey++;
+//             }
+//             var pastInst = activeInst;
+//             activeInst = instrumentArray[instKey];
+//             $("#content").html("<img src='./images/" + activeInst + ".svg' class='contentsvgs'>");
+//             $("input[name=instrument][value=" + activeInst + "]:radio").prop('checked', true);
+//             if (activeInst === 'sampler' && recorderEnabled == false) {
+//                 mic.start();
+//                 recorderEnabled = true;
+//             }
+//             break;
+//     }
+// });
