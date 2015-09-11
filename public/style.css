@@ -172,22 +172,21 @@ header {
 .arrows:after {
   content: '';
   width: 2rem;
-  height: 10rem;
   position: absolute;
   top: 0;
   z-index: 10;
 }
 .arrows:before {
   left: 0;
-  background-image: url("./images/arrow-l.svg");
-  background-repeat: no-repeat;
-  background-position: 100% 40%;
+  content: url("./images/arrow-l.svg");
+  padding: 3rem .5rem;
+  background-color: #eef0f1;
 }
 .arrows:after {
   right: 0;
-  background-image: url("./images/arrow-r.svg");
-  background-repeat: no-repeat;
-  background-position: 0 40%;
+  content: url("./images/arrow-r.svg");
+  padding: 3rem 0 3rem 1rem;
+  background-color: #eef0f1;
 }
 input {
   visibility: hidden;
