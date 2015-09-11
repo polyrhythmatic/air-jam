@@ -1,3 +1,6 @@
 /public/samples
 /node_modules
-.DS_Store
+/.DS_Store
+/wav_samples/
+todo2.txt
+/documentation
